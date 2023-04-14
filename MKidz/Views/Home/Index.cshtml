@@ -1,12 +1,16 @@
-﻿@{
+﻿@model List<DataModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="d-flex w-75">
-    <div>
-        <img src="~/book_1.jpeg" class="img border border-2 border-primary" />
-    </div>
-    <div >
-        <img src="~/book_2.jpeg" class="img border border-2 border-primary" />
-    </div>
+<div class="d-flex">
+    @foreach (var file in Model)
+    {
+        <a asp-action="AudioFiles" asp-controller="Home" asp-route-folderId="@file.Id" asp-route-folderName="@file.Name">
+            <div>
+                <img src="@file.FolderImage" class="img " />
+                <h2 class="d-flex">@file.Name</h2>
+            </div>
+        </a>
+    }
 </div>

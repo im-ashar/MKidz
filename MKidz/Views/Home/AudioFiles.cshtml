@@ -1,0 +1,41 @@
+﻿@using System.IO
+@model List<DataModel>
+@{
+    ViewData["Title"] = "Media Files";
+
+    var image = string.Empty;
+    foreach (var file in Model)
+    {
+        if (file.MimeType == "image/jpeg")
+        {
+            image = file.Id;
+            break;
+        }
+    }
+}
+
+<div class="d-flex w-50">
+    <img src="https://drive.google.com/uc?export=download&id=@image" class="img" />
+    <div class="d-flex justify-content-center align-items-center ms-3">
+        <h1 class="">@ViewBag.folderName</h1>
+    </div>
+</div>
+
+<div class="d-flex w-75 flex-column">
+    @foreach (var file in Model)
+    {
+        if (file.MimeType == "image/jpeg")
+        {
+            continue;
+        }
+
+        <div class="d-flex m-2">
+            <h3>
+                @System.IO.Path.GetFileNameWithoutExtension(file.Name)
+            </h3>
+            <a class="show-audio btn btn-outline-dark ms-2 d-flex justify-content-center align-items-center text-center" data-audio-id="@file.Id"><i class="bi bi-chevron-down"></i></a>
+        </div>
+        <div class="audio-container" data-audio-id="@file.Id"></div>
+
+    }
+</div>

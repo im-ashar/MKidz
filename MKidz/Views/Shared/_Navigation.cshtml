@@ -4,12 +4,12 @@
         <span class="fas fa-bars"></span>
     </div>
     <div class="logo">
-        MKIDZ
+        <a asp-action="Index" asp-controller="Home"> MKIDZ</a>
     </div>
     <div class="nav-items d-lg-flex justify-content-lg-end">
         <ul class="d-lg-flex mt-3 ">
-            <li><a href="#">Audio Books</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a asp-action="Index" asp-controller="Home">Audio Books</a></li>
+            <li><a href="https://api.whatsapp.com/send?phone=31616161413&text=Assalaamou%20Alaikoum%2C%0A%0AWe%20hebben%20een%20probleem%20met%20de%20app.%0A%0ABeschrijf%20het%20probleem..">Contact</a></li>
         </ul>
 
 
@@ -23,29 +23,3 @@
 
 </nav>
 
-<script>
-    const menuBtn = document.querySelector(".menu-icon span");
-    const searchBtn = document.querySelector(".search-icon");
-    const cancelBtn = document.querySelector(".cancel-icon");
-    const items = document.querySelector(".nav-items");
-    const form = document.querySelector("form");
-    menuBtn.onclick = () => {
-        items.classList.add("active");
-        menuBtn.classList.add("hide");
-        searchBtn.classList.add("hide");
-        cancelBtn.classList.add("show");
-    }
-    cancelBtn.onclick = () => {
-        items.classList.remove("active");
-        menuBtn.classList.remove("hide");
-        searchBtn.classList.remove("hide");
-        cancelBtn.classList.remove("show");
-        form.classList.remove("active");
-        cancelBtn.style.color = "#ff3d00";
-    }
-    searchBtn.onclick = () => {
-        form.classList.add("active");
-        searchBtn.classList.add("hide");
-        cancelBtn.classList.add("show");
-    }
-</script>

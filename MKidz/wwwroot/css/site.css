@@ -28,11 +28,12 @@ nav {
     padding: 0 100px;
 }
 
-    nav .logo {
+    nav .logo a{
         color: #fff;
         font-size: 30px;
         font-weight: 600;
         letter-spacing: -1px;
+        text-decoration:none;
         font-family: 'DG-Bebo-B', sans-serif;
     }
 
@@ -230,7 +231,7 @@ html {
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -258,3 +259,45 @@ body {
 main {
     flex: 1;
 }
+
+h2,h1 {
+    font-family: 'DG-Bebo-B', sans-serif;
+    
+}
+body{
+    background:#fff;
+}
+h3 {
+    font-family: "Code-Bold", sans-serif;
+}
+
+.audio-container {
+    display: none;
+    position: relative;
+    animation: slide-down 0.5s ease;
+}
+
+    .audio-container.show {
+        display: block;
+    }
+
+@keyframes slide-down {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+a {
+    text-decoration: none;
+    color:black;
+}
+    a:hover {
+        color: #fbb900
+    }
+
+    audio{
+        width:75vw;
+    }
