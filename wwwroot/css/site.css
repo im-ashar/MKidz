@@ -340,3 +340,24 @@ a {
 .bookLink:hover{
     cursor:pointer;
 }
+
+.splash-screen {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 100; /* Set the opacity to 0 by default */
+    transition: opacity 1s ease-out; /* Add a transition effect */
+}
+.splash-screen img{
+    width:30%;
+}
+
+
+

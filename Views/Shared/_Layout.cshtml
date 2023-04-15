@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MKidz</title>
+    <title>MKidz</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MKidz.styles.css" asp-append-version="true" />
@@ -12,6 +12,10 @@
 
 </head>
 <body>
+    <div class="splash-screen">
+        <img src="~/assets/splash.jpeg" alt="splash screen image">
+    </div>
+
     <header>
         <partial name="_Navigation" />
     </header>
@@ -28,6 +32,29 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    
+    <script>
+        window.addEventListener('load', function () {
+            // Show the splash screen
+            var splashScreen = document.querySelector('.splash-screen');
+            splashScreen.style.display = 'flex';
+
+            // Gradually increase the opacity of the splash screen to 1
+            setTimeout(function () {
+                splashScreen.style.opacity = '1';
+            }, 100);
+
+            // Hide the splash screen after 3 seconds
+            setTimeout(function () {
+                // Gradually decrease the opacity of the splash screen to 0
+                splashScreen.style.opacity = '0';
+            }, 3000);
+
+            // Hide the splash screen after the opacity has decreased to 0
+            setTimeout(function () {
+                splashScreen.style.display = 'none';
+            }, 4000);
+        });
+
+    </script>
 </body>
 </html>
