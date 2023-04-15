@@ -84,6 +84,19 @@ nav {
         padding: 0 50px;
     }
 }
+@media (min-width: 1025px) {
+    nav {
+        padding: 0 50px;
+    }
+    .nav-items{
+        display:flex;
+        justify-content:flex-end;
+    }
+        .nav-items ul {
+            display: flex;
+            justify-content: flex-end;
+        }
+}
 
 @media (max-width: 1024px) {
     nav {

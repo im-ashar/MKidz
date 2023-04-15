@@ -68,5 +68,7 @@
         public object WritersCanShare { get; set; }
         public object ETag { get; set; }
         public object FolderImage { get; set; }
+        public object FolderId { get; set; }
+        public object FolderName { get; set; }
     }
 }

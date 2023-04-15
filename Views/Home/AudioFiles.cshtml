@@ -50,11 +50,11 @@
         });
     }
 
-    let currentlyPlaying;
+    var currentlyPlaying;
 
-    const buttons = document.querySelectorAll('.show-audio');
+    const buttonss = document.querySelectorAll('.show-audio');
 
-    buttons.forEach((button) => {
+    buttonss.forEach((button) => {
         button.addEventListener('click', () => {
             const audioId = button.getAttribute('data-audio-id');
             const container = document.querySelector(`.audio-container[data-audio-id="${audioId}"]`);
