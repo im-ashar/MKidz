@@ -3,10 +3,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="d-flex">
+<div class="d-inline-flex">
     @foreach (var file in Model)
     {
-        <a asp-action="AudioFiles" asp-controller="Home" asp-route-folderId="@file.Id" asp-route-folderName="@file.Name">
+        @*asp - action = "AudioFiles" asp - controller = "Home" asp - route - folderId = "@file.Id" asp-route-folderName="@file.Name"*@
+        <a class="bookLink" data-folderName="@file.Name" data-folderId="@file.Id">
             <div>
                 <img src="@file.FolderImage" class="img " />
                 <h2 class="d-flex">@file.Name</h2>
@@ -14,3 +15,34 @@
         </a>
     }
 </div>
+
+<script>
+    const links = document.querySelectorAll('.bookLink');
+    links.forEach((a) => {
+        a.addEventListener('click', () => {
+            var folderId = $('.bookLink').attr('data-folderId');
+            var folderName = $('.bookLink').attr('data-folderName');
+
+            $('main').css('display', 'flex');
+            $('main').css('justify-content', 'center');
+            $('main').css('margin-top', '200px');
+            $('main').html('<div class="spinner-border text-dark d-flex justify-content-center align-items-center" role="status"><span class= "sr-only"></span></div> ');
+
+            $.ajax({
+                url: "/Home/AudioFiles",
+                type: "POST",
+                data: { folderId: folderId, folderName: folderName },
+                success: function (result) {
+                    $('main').css('display', '');
+                    $('main').css('justify-content', '');
+                    $('main').css('margin-top', '');
+                    $('main').html(result)
+
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            })
+        });
+    });
+</script>

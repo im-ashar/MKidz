@@ -37,7 +37,7 @@ namespace MKidz.Controllers
 
 
 
-            return View(audioFiles);
+            return PartialView(audioFiles);
         }
 
         

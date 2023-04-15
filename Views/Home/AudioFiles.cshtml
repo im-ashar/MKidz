@@ -30,12 +30,72 @@
         }
 
         <div class="d-flex m-2">
-            <h3>
-                @System.IO.Path.GetFileNameWithoutExtension(file.Name)
-            </h3>
-            <a class="show-audio btn btn-outline-dark ms-2 d-flex justify-content-center align-items-center text-center" data-audio-id="@file.Id"><i class="bi bi-chevron-down"></i></a>
+            <div>
+                <h3>
+                    @System.IO.Path.GetFileNameWithoutExtension(file.Name)
+                </h3>
+            </div>
+            <div>
+                <button class="show-audio btn btn-outline-dark ms-2 d-flex justify-content-center align-items-center text-center" data-audio-id="@file.Id"><i class="bi bi-chevron-down viewAudioIcon"></i></button>
+            </div>
         </div>
         <div class="audio-container" data-audio-id="@file.Id"></div>
 
     }
 </div>
+<script>
+    function pauseOthers(ele) {
+        $("audio").not(ele).each(function (index, audio) {
+            audio.pause();
+        });
+    }
+
+    let currentlyPlaying;
+
+    const buttons = document.querySelectorAll('.show-audio');
+
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const audioId = button.getAttribute('data-audio-id');
+            const container = document.querySelector(`.audio-container[data-audio-id="${audioId}"]`);
+            if (container.innerHTML === '') {
+                container.innerHTML = `
+                                                        <audio controls controlsList="nodownload noplaybackrate" onplay="pauseOthers(this);">
+                                                        <source src="https://drive.google.com/uc?export=view&id=${audioId}">
+                                                        Your browser does not support the audio tag.
+                                                    </audio>
+                                    <button class="btn btn-outline-dark" onclick="repeatAudio(this)"><i class="repeat-button bi bi-repeat-1"></i></button>
+                                                `;
+            }
+            const audio = container.querySelector('audio');
+            container.classList.toggle('show');
+            if (audio.play) {
+                audio.pause();
+            }
+            const icon = button.querySelector('i');
+            if (icon.classList.contains('bi-chevron-down')) {
+                icon.classList.remove('bi-chevron-down');
+                icon.classList.add('bi-chevron-up');
+            } else {
+                icon.classList.remove('bi-chevron-up');
+                icon.classList.add('bi-chevron-down');
+            }
+        });
+
+    });
+    function repeatAudio(button) {
+        const container = button.closest('.audio-container');
+        const audio = container.querySelector('audio');
+        const repeatButton = button.querySelector('.repeat-button');
+
+        if (audio.loop) {
+            audio.removeAttribute('loop');
+            repeatButton.classList.remove('bi-repeat');
+            repeatButton.classList.add('bi-repeat-1');
+        } else {
+            audio.setAttribute('loop', true);
+            repeatButton.classList.remove('bi-repeat-1');
+            repeatButton.classList.add('bi-repeat');
+        }
+    }
+</script>

@@ -245,7 +245,7 @@ footer {
     }
 
 .img {
-    width:50%;
+    width:45%;
     height:100%;
 }
 
@@ -262,13 +262,14 @@ main {
 
 h2,h1 {
     font-family: 'DG-Bebo-B', sans-serif;
-    
+    display:inline-block;
 }
 body{
     background:#fff;
 }
 h3 {
     font-family: "Code-Bold", sans-serif;
+    display:inline-block;
 }
 
 .audio-container {
@@ -301,3 +302,28 @@ a {
     audio{
         width:75vw;
     }
+
+@media (max-width: 768px) {
+    h2, h3 {
+        font-size: 1.5rem;
+        display: inline-block;
+    }
+    .img{
+        width:50%;
+    }
+}
+
+/* Adjust font size for even smaller screens */
+@media (max-width: 480px) {
+    h2, h3 {
+        font-size: 1.0rem;
+        display: inline-block;
+    }
+}
+.viewAudioIcon{
+    width:20px;
+    height :20px;
+}
+.bookLink:hover{
+    cursor:pointer;
+}
