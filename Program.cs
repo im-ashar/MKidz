@@ -1,9 +1,20 @@
+using Google.Apis.Drive.v3.Data;
+using Microsoft.EntityFrameworkCore;
+using MKidz.Models.Database;
+
 var builder = WebApplication.CreateBuilder(args);
+string connString = @"Data Source=(localdb)\MSSQLLocalDB;Database=MkidzRecords;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+var migrationAssembly = typeof(Program).Assembly.GetName().Name;
 
 // Add services to the container.
+builder.Services.AddDbContext<RecordsDBContext>(options => options.UseSqlServer(connString, sql => sql.MigrationsAssembly(migrationAssembly)));
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IRecordsFunctions, RecordsFunctions>();
 var app = builder.Build();
+
+var scope = app.Services.CreateScope();
+var migRecordsContext = scope.ServiceProvider.GetRequiredService<RecordsDBContext>();
+migRecordsContext.Database.MigrateAsync().Wait();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

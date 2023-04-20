@@ -1,7 +1,7 @@
 ﻿@using System.IO
 @model List<DataModel>
 @{
-    
+
 
     var image = string.Empty;
     foreach (var file in Model)
@@ -36,18 +36,61 @@
                 </h3>
             </div>
             <div>
-                <button class="show-audio btn btn-outline-dark ms-2 d-flex justify-content-center align-items-center text-center" data-audio-id="@file.Id"><i class="bi bi-chevron-down viewAudioIcon"></i></button>
+                <button class="show-audio btn btn-outline-dark ms-2 d-flex justify-content-center align-items-center text-center" data-audio-name="@file.Name" data-audio-id="@file.Id"><i class="bi bi-chevron-down viewAudioIcon"></i></button>
             </div>
         </div>
         <div class="audio-container" data-audio-id="@file.Id"></div>
 
     }
+
+
+
+    <audio controls controlsList="nodownload noplaybackrate" on onplay="pauseOthers(this,'${audioName}');">
+        <source src="https://drive.google.com/uc?export=view&id=${audioId}">
+        Your browser does not support the audio tag.
+    </audio>
+
+
+
+
 </div>
 <script>
-    function pauseOthers(ele) {
+    function pauseOthers(ele, audioName) {
         $("audio").not(ele).each(function (index, audio) {
             audio.pause();
         });
+        if (!ele.loop) {
+            $.ajax({
+                url: "/Database/AddAudioToDB",
+                type: "POST",
+                data: { audioName: audioName },
+                success: function (result) {
+                    console.log("pauseOthers");
+                },
+                error: function (result) {
+                    alert(result)
+                }
+            });
+        }
+    }
+    function Replay(audio, audioName) {
+        if (audio.loop) {
+            var currentTime = audio.currentTime;
+            var duration = audio.duration;
+            if (currentTime <= 0.03 && duration > 0.03) {
+                $.ajax({
+                    url: "/Database/AddAudioToDB",
+                    type: "POST",
+                    data: { audioName: audioName },
+                    success: function (result) {
+                        console.log("Replay");
+                    },
+                    error: function (result) {
+                        alert(result)
+                    }
+                });
+            }
+        }
     }
 
     var currentlyPlaying;
@@ -57,15 +100,16 @@
     buttonss.forEach((button) => {
         button.addEventListener('click', () => {
             const audioId = button.getAttribute('data-audio-id');
+            const audioName = button.getAttribute('data-audio-name');
             const container = document.querySelector(`.audio-container[data-audio-id="${audioId}"]`);
             if (container.innerHTML === '') {
                 container.innerHTML = `
-                                                        <audio controls controlsList="nodownload noplaybackrate" onplay="pauseOthers(this);">
+                                                                    <audio preload="auto" controls controlsList="nodownload noplaybackrate" ontimeupdate="Replay(this,'${audioName}')" onplay="pauseOthers(this,'${audioName}');">
                                                         <source src="https://drive.google.com/uc?export=view&id=${audioId}">
-                                                        Your browser does not support the audio tag.
+                                                                    Your browser does not support the audio tag.
                                                     </audio>
-                                    <button class="btn btn-outline-dark" onclick="repeatAudio(this)"><i class="repeat-button bi bi-repeat-1"></i></button>
-                                                `;
+                                                    <button class="btn btn-outline-dark" onclick="repeatAudio(this)"><i class="repeat-button bi bi-repeat-1"></i></button>
+                                                    `;
             }
             const audio = container.querySelector('audio');
             container.classList.toggle('show');

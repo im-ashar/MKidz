@@ -1,0 +1,19 @@
+﻿@model List<Records>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Audio Name</th>
+            <th scope="col">No Of Times Played</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model)
+        {
+            <tr>
+                <th scope="row">@record.AudioName</th>
+                <td>@record.AudioCount</td>
+            </tr>
+        }
+    </tbody>
+</table>

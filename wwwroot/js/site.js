@@ -51,6 +51,6 @@ links.forEach((a) => {
             error: function (result) {
                 alert(result)
             }
-        })
+        });
     });
 });
