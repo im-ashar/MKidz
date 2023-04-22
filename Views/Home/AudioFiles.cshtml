@@ -44,15 +44,6 @@
     }
 
 
-
-    <audio controls controlsList="nodownload noplaybackrate" on onplay="pauseOthers(this,'${audioName}');">
-        <source src="https://drive.google.com/uc?export=view&id=${audioId}">
-        Your browser does not support the audio tag.
-    </audio>
-
-
-
-
 </div>
 <script>
     function pauseOthers(ele, audioName) {
@@ -104,7 +95,7 @@
             const container = document.querySelector(`.audio-container[data-audio-id="${audioId}"]`);
             if (container.innerHTML === '') {
                 container.innerHTML = `
-                                                                    <audio preload="auto" controls controlsList="nodownload noplaybackrate" ontimeupdate="Replay(this,'${audioName}')" onplay="pauseOthers(this,'${audioName}');">
+                                                                    <audio preload="auto" controls controlsList="nodownload noplaybackrate" ontimeupdate='Replay(this,"${audioName}")' onplay='pauseOthers(this,"${audioName}");'>
                                                         <source src="https://drive.google.com/uc?export=view&id=${audioId}">
                                                                     Your browser does not support the audio tag.
                                                     </audio>
