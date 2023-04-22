@@ -95,12 +95,11 @@
             const container = document.querySelector(`.audio-container[data-audio-id="${audioId}"]`);
             if (container.innerHTML === '') {
                 container.innerHTML = `
-                                                                    <audio preload="auto" controls controlsList="nodownload noplaybackrate" ontimeupdate='Replay(this,"${audioName}")' onplay='pauseOthers(this,"${audioName}");'>
-                                                        <source src="https://drive.google.com/uc?export=view&id=${audioId}">
-                                                                    Your browser does not support the audio tag.
-                                                    </audio>
-                                                    <button class="btn btn-outline-dark" onclick="repeatAudio(this)"><i class="repeat-button bi bi-repeat-1"></i></button>
-                                                    `;
+                    <audio controls controlsList="nodownload noplaybackrate" ontimeupdate="Replay(this,'${audioName.replace("'", "\\'")}' )" onplay="pauseOthers(this,'${audioName.replace("'", "\\'")}');">
+                        <source src="https://drive.google.com/uc?export=view&id=${audioId}">
+                            Your browser does not support the audio tag.
+                    </audio><div>
+                    <button class="btn btn-outline-dark" onclick="repeatAudio(this)"><i class="repeat-button bi bi-repeat-1"></i></button></div>`;
             }
             const audio = container.querySelector('audio');
             container.classList.toggle('show');
