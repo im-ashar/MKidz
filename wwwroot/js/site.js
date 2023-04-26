@@ -49,7 +49,7 @@ links.forEach((a) => {
                 $('main').html(result)
             },
             error: function (result) {
-                alert(result)
+                console.log(result);
             }
         });
     });

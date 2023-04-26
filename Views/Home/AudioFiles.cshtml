@@ -56,10 +56,10 @@
                 type: "POST",
                 data: { audioName: audioName },
                 success: function (result) {
-                    console.log("pauseOthers");
+                    console.log(result);
                 },
                 error: function (result) {
-                    alert(result)
+                    console.log(result);
                 }
             });
         }
@@ -74,10 +74,10 @@
                     type: "POST",
                     data: { audioName: audioName },
                     success: function (result) {
-                        console.log("Replay");
+                        console.log(result);
                     },
                     error: function (result) {
-                        alert(result)
+                        console.log(result);
                     }
                 });
             }

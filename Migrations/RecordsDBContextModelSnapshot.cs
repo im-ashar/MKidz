@@ -2,6 +2,7 @@
 using MKidz.Models.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -16,7 +17,9 @@ namespace MKidz.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("MKidz.Models.Database.Records", b =>
                 {
@@ -24,12 +27,14 @@ namespace MKidz.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("AudioCount")
                         .HasColumnType("int");
 
                     b.Property<string>("AudioName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
