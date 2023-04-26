@@ -26,7 +26,6 @@ searchBtn.onclick = () => {
 }
 
 const links = document.querySelectorAll('.bookLink');
-console.log(links);
 links.forEach((a) => {
     a.addEventListener('click', () => {
         var folderId = a.dataset.folderid;
