@@ -21,9 +21,13 @@ namespace MKidz.Controllers
                 _recordsFunctions.Add(new Records { AudioName = audioName, AudioCount = 1 });
             }
         }
-        public IActionResult Admin()
+        public IActionResult Admin(string user,string pass)
         {
-            return View(_recordsFunctions.GetAll());
+            if (user == "mkidz" && pass == "mkidz786")
+            {
+                return View(_recordsFunctions.GetAll());
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

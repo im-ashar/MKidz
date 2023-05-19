@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MKidz.Models.Database;
 
 var builder = WebApplication.CreateBuilder(args);
-string connString = @"Data Source=SQL5110.site4now.net;Initial Catalog=db_a9840a_admin;User Id=db_a9840a_admin_admin;Password=admin@mkidz123";
+//string connString = @"Data Source=SQL5110.site4now.net;Initial Catalog=db_a9840a_admin;User Id=db_a9840a_admin_admin;Password=admin@mkidz123";
+string connString = @"Data Source=SQL8005.site4now.net;Initial Catalog=db_a98a37_admin;User Id=db_a98a37_admin_admin;Password=admin@mkidz123";
+
 var migrationAssembly = typeof(Program).Assembly.GetName().Name;
 
 // Add services to the container.
